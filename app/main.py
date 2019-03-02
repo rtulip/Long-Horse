@@ -71,7 +71,7 @@ def ping():
 @bottle.post('/start')
 def start():
     data = bottle.request.json
-
+    print(data)
     #Board height and width
     b_height = data.get("board").get("height")
     b_width = data.get("board").get("width")
