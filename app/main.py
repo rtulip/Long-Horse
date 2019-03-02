@@ -2,8 +2,48 @@ import json
 import os
 import random
 import bottle
-
+import DataParser
 from api import ping_response, start_response, move_response, end_response
+
+def process_data(data):
+    #Process JSON input into a more usable format
+    food_data = data.get("board").get("food")
+    snakes = data.get("board").get("snakes")
+    health = data.get("you").get("health")
+    width = data.get("board").get("width")
+    height =  data.get("board").get("height")
+
+    food = []
+    enemies = []
+    body = []
+
+    for f in food_data:
+        x = f.get("x")
+        y = f.get("y")
+        food.append((x,y))
+    for s in snakes:
+        if s.get("id") == data.get("you").get("id"):
+            for b in s.get("body"):
+                x = b.get("x")
+                y = b.get("y")
+                body.append((x,y))
+        else:
+            for e in s.get("body"):
+                x = e.get("x")
+                y = e.get("y")
+                enemies.append((x,y))
+
+    return width,height, food, body, enemies, health
+
+def printer(food,body,enemies,health):
+    #simple printer that prints to heroku logs
+    #useful for debugging 
+
+    print("Food: ",food)
+    print("Body: ",body)
+    print("Enemies: ",enemies)
+    print("Health: ",health)
+
 
 @bottle.route('/')
 def index():
@@ -50,31 +90,25 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
-    print("Moving")
-    
-    new_food = data.get("board").get("food")
-    new_snakes = data.get("board").get("snakes")
-    print(new_food[0].get("x"))
-    """
-    TODO: Using the data from the endpoint request object, your
-            snake AI must choose a direction to move in.
-    """
-    #print(json.dumps(data))
-
 
     directions = ['up', 'down', 'left', 'right']
 
-    body = data.get("you").get("body")
-    head = body[0]
+    food = []
+    body = []
+    enemies = []
+    health = -1
+
+    #Process Data from JSON request
+    #food,body,enemies stored as list of tuples containing x,y positions [(x,y)]
+    #health is stored as an integer between 0-100
+    #food, body, enemies, health = process_data(data)
+    #printer(food,body,enemies,health)
 
 
-    if head.get("y") == 0 or head.get("y") == 19:
-        direction = "right"
-    else:
-        direction = "up"
-    if head.get("x") == 0 or head.get("x") == 19:
-        direction = "right"
-
+    data_beauty = DataParser(data)
+    direction = 'left'
+    print("Moving "+direction)
+    
     return move_response(direction)
 
 
