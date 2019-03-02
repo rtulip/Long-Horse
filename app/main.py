@@ -100,10 +100,7 @@ def move():
     #health is stored as an integer between 0-100
     width,height,food, body, enemies, health = process_data(data)
     print(enemies)
-    #printer(food,body,enemies,health)
-
-
-    data_beauty = DataParser(data)
+    #printer(food,body,enemies,health
 
     direction = 'left'
     
