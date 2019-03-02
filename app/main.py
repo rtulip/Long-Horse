@@ -34,6 +34,7 @@ def process_data(data):
                 y = e.get("y")
                 enemy_snake.append((x,y))
             enemies.append(enemy_snake)
+            enemies.pop()
 
     return width,height, food, body, enemies, health
 
