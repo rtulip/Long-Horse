@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-
+from board import Board
 from api import ping_response, start_response, move_response, end_response
 
 def process_data(data):
@@ -99,9 +99,8 @@ def move():
     #food,body,enemies stored as list of tuples containing x,y positions [(x,y)]
     #health is stored as an integer between 0-100
     width,height,food, body, enemies, health = process_data(data)
-    print(enemies)
-    #printer(food,body,enemies,health
-
+    print(enemies) 
+    board = Board(width,height,food, body, enemies, health)
     direction = 'left'
     
     return move_response(direction)
