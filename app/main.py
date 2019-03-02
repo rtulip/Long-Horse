@@ -84,6 +84,12 @@ def start():
 
     return start_response(color)
 
+def costConstructor(board):
+    def cost(x,y):
+        a = 1
+        weight = board.getCost(x,y)
+        return(a*(1+weight))
+    return cost
 
 @bottle.post('/move')
 def move():

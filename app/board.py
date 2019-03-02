@@ -19,7 +19,7 @@ class Board:
 				whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5
 			if(snack[1] > 0):
 				whip[snack[0],snack[1]-1][1] = whip[snack[0],snack[1]-1][1] - .5
-			if(snack[0] < self.dimension[1]-1):
+			if(snack[1] < self.dimension[1]-1):
 				whip[snack[0],snack[1]+1][1] = whip[snack[0],snack[1]+1][1] - .5
 
 			if(snack[0] > 1):
@@ -28,7 +28,7 @@ class Board:
 				whip[snack[0]+2,snack[1]][1] = whip[snack[0]+2,snack[1]][1] - .25
 			if(snack[1] > 1):
 				whip[snack[0],snack[1]-2][1] = whip[snack[0],snack[1]-2][1] - .25
-			if(snack[0] < self.dimension[1]-2):
+			if(snack[1] < self.dimension[1]-2):
 				whip[snack[0],snack[1]+2][1] = whip[snack[0],snack[1]+2][1] - .25
 
 		
@@ -45,7 +45,7 @@ class Board:
 			moves = (m1,m2,m3)
 
 			for move in moves:
-				if(move[0]>=0 and move[0]<= self.dimension[0] and move[1]>=0 and move[1]<=self.dimension[1] ):
+				if(move[0]>=0 and move[0]<self.dimension[0] and move[1]>=0 and move[1]<self.dimension[1]):
 					if(len(self.body)>len(baddy)):
 						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] - 1
 
@@ -81,6 +81,9 @@ class Board:
 			whip[bit[0],bit[1]] = (thiccness,1)
 			thiccness = thiccness + 10
 		self.board = whip
+
+	def getCost(self,x,y):
+		return(self.board[x,y][1])
 
 	def getBoard(self):
 		return(self.board)
@@ -134,6 +137,10 @@ def test():
 	for row in range(b.height):
 		for col in range(b.width):
 			assert (b.getBoard()[row][col] == correct_board[row][col]).all
-		
-	
+			#print(b.getCost(col,row),correct_board[row][col][1] )
+			#try:
+			#	assert (b.getCost(row,col) == correct_board[row][col][1])
+			#except:
+				#print row, col, b.getCost(row,col), correct_board[row][col][1]
+			#	print('owch')
 
