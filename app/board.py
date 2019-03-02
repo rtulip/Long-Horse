@@ -55,24 +55,6 @@ class Board:
 			whip[head[0],head[1]] = (badboys+thiccness,1)
 			for baddy_bit in baddy[1:]:
 				thiccness = thiccness + 10
-				
-				if(baddy_bit[0] > 0):
-					whip[baddy_bit[0]-1,baddy_bit[1]][1] = whip[baddy_bit[0]-1,baddy_bit[1]][1] + .5
-				if(baddy_bit[0] < 9):
-					whip[baddy_bit[0]+1,baddy_bit[1]][1] = whip[baddy_bit[0]+1,baddy_bit[1]][1] + .5
-				if(baddy_bit[1] > 0):
-					whip[baddy_bit[0],baddy_bit[1]-1][1] = whip[baddy_bit[0],baddy_bit[1]-1][1] + .5
-				if(baddy_bit[0] < 9):
-					whip[baddy_bit[0],baddy_bit[1]+1][1] = whip[baddy_bit[0],baddy_bit[1]+1][1] + .5
-
-				if(baddy_bit[0] > 1):
-					whip[baddy_bit[0]-2,baddy_bit[1]][1] = whip[baddy_bit[0]-2,baddy_bit[1]][1] + .25
-				if(baddy_bit[0] < 1):
-					whip[baddy_bit[0]+2,baddy_bit[1]][1] = whip[baddy_bit[0]+2,baddy_bit[1]][1] + .25
-				if(baddy_bit[1] > 1):
-					whip[baddy_bit[0],baddy_bit[1]-2][1] = whip[baddy_bit[0],baddy_bit[1]-2][1] + .25
-				if(baddy_bit[0] < 1):
-					whip[baddy_bit[0],baddy_bit[1]+2][1] = whip[baddy_bit[0],baddy_bit[1]+2][1] + .25
 
 				whip[baddy_bit[0],baddy_bit[1]] = (badboys+thiccness,1)
 				
