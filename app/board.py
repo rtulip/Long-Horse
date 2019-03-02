@@ -58,7 +58,7 @@ class Board:
 					whip[baddy_bit[0]+1,baddy_bit[1]][1] = whip[baddy_bit[0]+1,baddy_bit[1]][1] + .5
 				if(baddy_bit[1] > 0):
 					whip[baddy_bit[0],baddy_bit[1]-1][1] = whip[baddy_bit[0],baddy_bit[1]-1][1] + .5
-				if(baddy_bit[0] < dimension[1]-1):
+				if(baddy_bit[1] < dimension[1]-1):
 					whip[baddy_bit[0],baddy_bit[1]+1][1] = whip[baddy_bit[0],baddy_bit[1]+1][1] + .5
 
 				if(baddy_bit[0] > 1):
