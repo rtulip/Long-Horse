@@ -93,12 +93,13 @@ def move():
 
     head = body[0]
     tail = body[-1]
+    print(tail)
 
     if(len(body) <= 8 or health <= 35 and len(food) != 0):
         direction = calc_move(board,a_star(board,head,food[0]))
     else:
         direction = calc_move(board,a_star(board,head,tail))
-        
+
     return move_response(direction)
 
 
