@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-import DataParser
+
 from api import ping_response, start_response, move_response, end_response
 
 def process_data(data):
@@ -14,8 +14,9 @@ def process_data(data):
     height =  data.get("board").get("height")
 
     food = []
-    enemies = []
+    enemies = [[]]
     body = []
+    enemy_count = 0
 
     for f in food_data:
         x = f.get("x")
@@ -31,19 +32,15 @@ def process_data(data):
             for e in s.get("body"):
                 x = e.get("x")
                 y = e.get("y")
-                enemies.append((x,y))
+                enemies[enemy_count].append((x,y))
+            enemy_count += 1
 
     return width,height, food, body, enemies, health
 
 def printer(food,body,enemies,health):
     #simple printer that prints to heroku logs
-    #useful for debugging 
-
-    print("Food: ",food)
-    print("Body: ",body)
-    print("Enemies: ",enemies)
-    print("Health: ",health)
-
+    #useful for debugging
+    print("hello")
 
 @bottle.route('/')
 def index():
@@ -101,14 +98,14 @@ def move():
     #Process Data from JSON request
     #food,body,enemies stored as list of tuples containing x,y positions [(x,y)]
     #health is stored as an integer between 0-100
-    #food, body, enemies, health = process_data(data)
+    width,height,food, body, enemies, health = process_data(data)
+    print(enemies)
     #printer(food,body,enemies,health)
 
 
     data_beauty = DataParser(data)
 
     direction = 'left'
-    print(data_beauty.getWidth())
     
     return move_response(direction)
 

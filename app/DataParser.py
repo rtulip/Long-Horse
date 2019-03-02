@@ -44,5 +44,5 @@ class DataParser:
         print("Health: ",health)
 
     def getWidth():
-        return self.width
+        return width
     
