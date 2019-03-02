@@ -44,12 +44,20 @@ def get_neighbours_builder(board):
 
     return get_neighbours
 
+def costConstructor(board):
+    def cost(coords):
+        x,y = coords
+        a = 1
+        weight = board.getCost(x,y)
+        return(a*(1+weight))
+    return cost
+
 #Retrurns a* path from one node to another
 def a_star(board,start,finish):
     start_x, start_y = start
     finish_x, finish_y = finish
 
-    finder = astar.pathfinder(neighbors= get_neighbours_builder(board))
+    finder = astar.pathfinder(neighbors= get_neighbours_builder(board),cost = costConstructor(board))
     path = finder((start_x,start_y), (finish_x, finish_y))
     return path
 '''
