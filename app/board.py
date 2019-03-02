@@ -1,6 +1,6 @@
 import numpy as np
 
-class Game:
+class Board:
 	
 	def __init__(self, width, height,food,body,enemies,health = 100):
 		self.dimension = (width,height)
@@ -24,9 +24,10 @@ class Game:
 		for bit in body:
 			whip[bit[0],bit[1]] = (thiccness,1)
 			thiccness = thiccness + 10
+		
 		self.board = whip
 
-	def boardState(self):
+	def getBoard(self):
 		return(self.board)
 	
 	def getDim(self):
