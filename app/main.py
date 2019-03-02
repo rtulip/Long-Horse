@@ -14,7 +14,7 @@ def process_data(data):
     height =  data.get("board").get("height")
 
     food = []
-    enemies = [[]]
+    enemies = [8][]
     body = []
     enemy_count = 0
 
