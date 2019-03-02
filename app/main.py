@@ -71,7 +71,7 @@ def ping():
 @bottle.post('/start')
 def start():
     data = bottle.request.json
-
+    print(data)
     #Board height and width
     b_height = data.get("board").get("height")
     b_width = data.get("board").get("width")
@@ -83,13 +83,6 @@ def start():
     color = "#00FF00"
 
     return start_response(color)
-
-def costConstructor(board):
-    def cost(x,y):
-        a = 1
-        weight = board.getCost(x,y)
-        return(a*(1+weight))
-    return cost
 
 @bottle.post('/move')
 def move():

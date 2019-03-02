@@ -44,12 +44,19 @@ def get_neighbours_builder(board):
 
     return get_neighbours
 
+def costConstructor(board):
+    def cost(a,b):
+        scale = 1
+        weight = board.getCost(b[0],b[1])
+        return(scale*(1+weight))
+    return cost
+
 #Retrurns a* path from one node to another
 def a_star(board,start,finish):
     start_x, start_y = start
     finish_x, finish_y = finish
 
-    finder = astar.pathfinder(neighbors= get_neighbours_builder(board))
+    finder = astar.pathfinder(neighbors= get_neighbours_builder(board),cost = costConstructor(board))
     path = finder((start_x,start_y), (finish_x, finish_y))
     return path
 '''
@@ -123,6 +130,7 @@ def test():
 	
 	path = a_star(b, body[0], food[0])
 	print(path)
+
 
 	print(calc_move(b, path))
 
