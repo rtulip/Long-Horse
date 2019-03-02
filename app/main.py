@@ -106,8 +106,9 @@ def move():
 
 
     data_beauty = DataParser(data)
+
     direction = 'left'
-    print("Moving "+direction)
+    print(data_beauty.getWidth())
     
     return move_response(direction)
 
