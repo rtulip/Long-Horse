@@ -12,8 +12,26 @@ class Board:
 		whip = np.zeros((width,height,2), dtype = object)
 
 		for snack in food:
-			whip[snack[0],snack[1]] = (-1,0)
+			whip[snack[0],snack[1]] = (-1,-1)
+			if(snack[0] > 0):
+				whip[snack[0]-1,snack[1]][1] = whip[snack[0]-1,snack[1]][1] - .5
+			if(snack[0] < 9):
+				whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5
+			if(snack[1] > 0):
+				whip[snack[0],snack[1]-1][1] = whip[snack[0],snack[1]-1][1] - .5
+			if(snack[0] < 9):
+				whip[snack[0],snack[1]+1][1] = whip[snack[0],snack[1]+1][1] - .5
 
+			if(snack[0] > 1):
+				whip[snack[0]-2,snack[1]][1] = whip[snack[0]-2,snack[1]][1] - .25
+			if(snack[0] < 8):
+				whip[snack[0]+2,snack[1]][1] = whip[snack[0]+2,snack[1]][1] - .25
+			if(snack[1] > 1):
+				whip[snack[0],snack[1]-2][1] = whip[snack[0],snack[1]-2][1] - .25
+			if(snack[0] < 8):
+				whip[snack[0],snack[1]+2][1] = whip[snack[0],snack[1]+2][1] - .25
+
+		
 		badboys = 1
 		for baddy in enemies:
 			badboys += 1
@@ -21,12 +39,29 @@ class Board:
 			for baddy_bit in baddy:
 				whip[baddy_bit[0],baddy_bit[1]] = (badboys+thiccness,1)
 				thiccness = thiccness + 10
+				
+				if(baddy_bit[0] > 0):
+					whip[baddy_bit[0]-1,baddy_bit[1]][1] = whip[baddy_bit[0]-1,baddy_bit[1]][1] + .5
+				if(baddy_bit[0] < 9):
+					whip[baddy_bit[0]+1,baddy_bit[1]][1] = whip[baddy_bit[0]+1,baddy_bit[1]][1] + .5
+				if(baddy_bit[1] > 0):
+					whip[baddy_bit[0],baddy_bit[1]-1][1] = whip[baddy_bit[0],baddy_bit[1]-1][1] + .5
+				if(baddy_bit[0] < 9):
+					whip[baddy_bit[0],baddy_bit[1]+1][1] = whip[baddy_bit[0],baddy_bit[1]+1][1] + .5
+
+				if(baddy_bit[0] > 1):
+					whip[baddy_bit[0]-2,baddy_bit[1]][1] = whip[baddy_bit[0]-2,baddy_bit[1]][1] + .25
+				if(baddy_bit[0] < 1):
+					whip[baddy_bit[0]+2,baddy_bit[1]][1] = whip[baddy_bit[0]+2,baddy_bit[1]][1] + .25
+				if(baddy_bit[1] > 1):
+					whip[baddy_bit[0],baddy_bit[1]-2][1] = whip[baddy_bit[0],baddy_bit[1]-2][1] + .25
+				if(baddy_bit[0] < 1):
+					whip[baddy_bit[0],baddy_bit[1]+2][1] = whip[baddy_bit[0],baddy_bit[1]+2][1] + .25
 
 		thiccness = 1
 		for bit in body:
 			whip[bit[0],bit[1]] = (thiccness,1)
 			thiccness = thiccness + 10
-		
 		self.board = whip
 
 	def getBoard(self):
