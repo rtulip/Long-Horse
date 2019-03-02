@@ -45,8 +45,7 @@ def get_neighbours_builder(board):
     return get_neighbours
 
 def costConstructor(board):
-    def cost(coords):
-        x,y = coords
+    def cost(x,y):
         a = 1
         weight = board.getCost(x,y)
         return(a*(1+weight))
