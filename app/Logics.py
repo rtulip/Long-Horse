@@ -82,6 +82,45 @@ def calc_move(board,path):
     direction = random.choice(directions)
     return direction
 
+def test():
+	from board import Board	
+	width  = 10
+	height = 10
+	food = [(0,0),(4,4),(5,6),(7,3),(9,9)]
+	body = [(8,8),(8,9)]
+	enemies = [ [(2,1),(2,2)] , [(3,1),(3,2)] , [(4,1),(4,2),(4,3)] ]	
+
+	b = Board(width,height,food,body,enemies)
+
+	assert out_of_bounds((-1, 5), b) == True
+	assert out_of_bounds((5, -1), b) == True
+	assert out_of_bounds((0 , 5), b) == False
+	assert out_of_bounds((5,  0), b) == False
+	assert out_of_bounds((5,  9), b) == False
+	assert out_of_bounds((9,  5), b) == False
+	assert out_of_bounds((10, 5), b) == True
+	assert out_of_bounds((5, 10), b) == True
+
+	assert is_safe((-1, 5), b) == False
+	assert is_safe((5, -1), b) == False
+	assert is_safe((0, 5), b)  == True
+	assert is_safe((5, 0), b)  == True
+	assert is_safe((5, 9), b)  == True
+	assert is_safe((9, 5), b)  == True
+	assert is_safe((10, 5), b) == False
+	assert is_safe((5, 10), b) == False
+	assert is_safe((2, 1), b)  == False
+	assert is_safe((2, 2), b)  == False
+	assert is_safe((3, 1), b)  == False
+	assert is_safe((3, 2), b)  == False
+	assert is_safe((4, 1), b)  == False
+	assert is_safe((4, 2), b)  == False		
+	assert is_safe((4, 3), b)  == False
+	
+	path = a_star(b, body[0], food[0])
+	print(path)
+
+	print(calc_move(b, path))
 
 
 
