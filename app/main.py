@@ -2,6 +2,7 @@ import json
 import os
 import random
 import bottle
+from Logics import a_star, calc_move
 from board import Board
 from api import ping_response, start_response, move_response, end_response
 
@@ -86,23 +87,22 @@ def start():
 
 @bottle.post('/move')
 def move():
-	data = bottle.request.json
-	directions = ['up', 'down', 'left', 'right']
+    data = bottle.request.json
+    directions = ['up', 'down', 'left', 'right']
 
-	food = []
-	body = []
-	enemies = []
-	health = -1
+    food = []
+    body = []
+    enemies = []
+    health = -1
 
 	#Process Data from JSON request
 	#food,body,enemies stored as list of tuples containing x,y positions [(x,y)]
-	#health is stored as an integer between 0-100
-	width,height,food, body, enemies, health = process_data(data)
-	print(enemies) 
-	board = Board(width,height,food, body, enemies, health)
-	direction = 'left'
-    
-	return move_response(direction)
+    #health is stored as an integer between 0-100
+    width,height,food, body, enemies, health = process_data(data)
+    board = Board(width,height,food, body, enemies, health)
+    head = body[0]
+    direction = calc_move(board,a_star(board,head,food[0]))
+    return move_response(direction)
 
 
 @bottle.post('/end')
@@ -121,6 +121,7 @@ def end():
 application = bottle.default_app()
 
 if __name__ == '__main__':
+    print(Logics.States)
     bottle.run(
         application,
         host=os.getenv('IP', '0.0.0.0'),

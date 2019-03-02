@@ -4,6 +4,8 @@ class Board:
 	
 	def __init__(self, width, height,food,body,enemies,health = 100):
 		self.dimension = (width,height)
+		self.width = width
+		self.height = height
 		self.food = food
 		self.body = body
 		self.enemies = enemies
@@ -37,8 +39,16 @@ class Board:
 		return(len(self.enemies))
 
 	def numFood(self):
-		return(len(food))
+		return(len(self.food))
 
 	def mySize(self):
-		return(len(body))
+		return(len(self.body))
+
+	def getEnemies(self):
+		return(self.enemies)
+	
+	def getBody(self):
+		return(self.body)
+
+	
 
