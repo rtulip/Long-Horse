@@ -71,15 +71,6 @@ def ping():
 @bottle.post('/start')
 def start():
     data = bottle.request.json
-    print(data)
-    #Board height and width
-    b_height = data.get("board").get("height")
-    b_width = data.get("board").get("width")
-    
-    food = data.get("board").get("food")
-    snakes = data.get("board").get("snakes")
-    #print(json.dumps(data))
-
     color = "#00FF00"
 
     return start_response(color)
