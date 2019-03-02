@@ -45,10 +45,10 @@ def get_neighbours_builder(board):
     return get_neighbours
 
 def costConstructor(board):
-    def cost(x,y):
-        a = 1
-        weight = board.getCost(x,y)
-        return(a*(1+weight))
+    def cost(a,b):
+        scale = 1
+        weight = board.getCost(b[0],b[1])
+        return(scale*(1+weight))
     return cost
 
 #Retrurns a* path from one node to another
@@ -130,6 +130,7 @@ def test():
 	
 	path = a_star(b, body[0], food[0])
 	print(path)
+
 
 	print(calc_move(b, path))
 
