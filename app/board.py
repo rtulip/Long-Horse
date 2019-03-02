@@ -15,20 +15,20 @@ class Board:
 			whip[snack[0],snack[1]] = (-1,-1)
 			if(snack[0] > 0):
 				whip[snack[0]-1,snack[1]][1] = whip[snack[0]-1,snack[1]][1] - .5
-			if(snack[0] < 9):
+			if(snack[0] < self.dimension[0]-1):
 				whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5
 			if(snack[1] > 0):
 				whip[snack[0],snack[1]-1][1] = whip[snack[0],snack[1]-1][1] - .5
-			if(snack[0] < 9):
+			if(snack[0] < self.dimension[1]-1):
 				whip[snack[0],snack[1]+1][1] = whip[snack[0],snack[1]+1][1] - .5
 
 			if(snack[0] > 1):
 				whip[snack[0]-2,snack[1]][1] = whip[snack[0]-2,snack[1]][1] - .25
-			if(snack[0] < 8):
+			if(snack[0] < self.dimension[0]-2):
 				whip[snack[0]+2,snack[1]][1] = whip[snack[0]+2,snack[1]][1] - .25
 			if(snack[1] > 1):
 				whip[snack[0],snack[1]-2][1] = whip[snack[0],snack[1]-2][1] - .25
-			if(snack[0] < 8):
+			if(snack[0] < self.dimension[1]-2):
 				whip[snack[0],snack[1]+2][1] = whip[snack[0],snack[1]+2][1] - .25
 
 		
@@ -36,8 +36,24 @@ class Board:
 		for baddy in enemies:
 			badboys += 1
 			thiccness = 0
-			for baddy_bit in baddy:
-				whip[baddy_bit[0],baddy_bit[1]] = (badboys+thiccness,1)
+			head = baddy[0]
+			neck = baddy[1]
+			d = (head[0]-neck[0],head[1]-neck[1])
+			m1 = (head[0]+d[0],head[1]+d[1])
+			m2 = (head[0]+d[1],head[1]+d[0])
+			m3 = (head[0]-d[1],head[1]-d[0])
+			moves = (m1,m2,m3)
+
+			for move in moves:
+				if(move[0]>=0 and move[0]<= self.dimension[0] and move[1]>=0 and move[1]<=self.dimension[1] ):
+					if(len(self.body)>len(baddy)):
+						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] - 1
+
+					else:
+						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] + .9
+
+			whip[head[0],head[1]] = (badboys+thiccness,1)
+			for baddy_bit in baddy[1:]:
 				thiccness = thiccness + 10
 				
 				if(baddy_bit[0] > 0):
@@ -56,6 +72,26 @@ class Board:
 				if(baddy_bit[1] > 1):
 					whip[baddy_bit[0],baddy_bit[1]-2][1] = whip[baddy_bit[0],baddy_bit[1]-2][1] + .25
 				if(baddy_bit[0] < 1):
+					whip[baddy_bit[0],baddy_bit[1]+2][1] = whip[baddy_bit[0],baddy_bit[1]+2][1] + .25
+
+				whip[baddy_bit[0],baddy_bit[1]] = (badboys+thiccness,1)
+				
+				if(baddy_bit[0] > 0):
+					whip[baddy_bit[0]-1,baddy_bit[1]][1] = whip[baddy_bit[0]-1,baddy_bit[1]][1] + .5
+				if(baddy_bit[0] < self.dimension[0]-1):
+					whip[baddy_bit[0]+1,baddy_bit[1]][1] = whip[baddy_bit[0]+1,baddy_bit[1]][1] + .5
+				if(baddy_bit[1] > 0):
+					whip[baddy_bit[0],baddy_bit[1]-1][1] = whip[baddy_bit[0],baddy_bit[1]-1][1] + .5
+				if(baddy_bit[0] < self.dimension[1]-1):
+					whip[baddy_bit[0],baddy_bit[1]+1][1] = whip[baddy_bit[0],baddy_bit[1]+1][1] + .5
+
+				if(baddy_bit[0] > 1):
+					whip[baddy_bit[0]-2,baddy_bit[1]][1] = whip[baddy_bit[0]-2,baddy_bit[1]][1] + .25
+				if(baddy_bit[0] < self.dimension[0]-2):
+					whip[baddy_bit[0]+2,baddy_bit[1]][1] = whip[baddy_bit[0]+2,baddy_bit[1]][1] + .25
+				if(baddy_bit[1] > 1):
+					whip[baddy_bit[0],baddy_bit[1]-2][1] = whip[baddy_bit[0],baddy_bit[1]-2][1] + .25
+				if(baddy_bit[1] < self.dimension[0]-2):
 					whip[baddy_bit[0],baddy_bit[1]+2][1] = whip[baddy_bit[0],baddy_bit[1]+2][1] + .25
 
 		thiccness = 1
