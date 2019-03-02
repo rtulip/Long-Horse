@@ -14,7 +14,7 @@ def process_data(data):
     height =  data.get("board").get("height")
 
     food = []
-    enemies = [[]]
+    enemies = []
     body = []
 
     for f in food_data:
@@ -34,7 +34,6 @@ def process_data(data):
                 y = e.get("y")
                 enemy_snake.append((x,y))
             enemies.append(enemy_snake)
-            enemies.pop()
 
     return width,height, food, body, enemies, health
 
