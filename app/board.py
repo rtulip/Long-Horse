@@ -2,39 +2,30 @@ import numpy as np
 
 class Board:
 	
-	def __init__(self, width, height,food,body,enemies,health = 100):
-		self.dimension = (width,height)
-		self.width = width
-		self.height = height
-		self.food = food
-		self.body = body
-		self.enemies = enemies
-		whip = np.zeros((width,height,2), dtype = object)
-
+	def default_food_fcn(whip, food, dimension):
 		for snack in food:
 			whip[snack[0],snack[1]] = (-1,-1)
 			if(snack[0] > 0):
 				whip[snack[0]-1,snack[1]][1] = whip[snack[0]-1,snack[1]][1] - .5
-			if(snack[0] < self.dimension[0]-1):
-				try:
-					whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5
-				except IndexError:
-					print "INDEX ERROR!", snack[0]+1, 
+			if(snack[0] < dimension[0]-1):
+				whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5 
 			if(snack[1] > 0):
 				whip[snack[0],snack[1]-1][1] = whip[snack[0],snack[1]-1][1] - .5
-			if(snack[1] < self.dimension[1]-1):
+			if(snack[1] < dimension[1]-1):
 				whip[snack[0],snack[1]+1][1] = whip[snack[0],snack[1]+1][1] - .5
 
 			if(snack[0] > 1):
 				whip[snack[0]-2,snack[1]][1] = whip[snack[0]-2,snack[1]][1] - .25
-			if(snack[0] < self.dimension[0]-2):
+			if(snack[0] < dimension[0]-2):
 				whip[snack[0]+2,snack[1]][1] = whip[snack[0]+2,snack[1]][1] - .25
 			if(snack[1] > 1):
 				whip[snack[0],snack[1]-2][1] = whip[snack[0],snack[1]-2][1] - .25
-			if(snack[1] < self.dimension[1]-2):
+			if(snack[1] < dimension[1]-2):
 				whip[snack[0],snack[1]+2][1] = whip[snack[0],snack[1]+2][1] - .25
 
-		
+			return whip
+
+	def default_snake_fcn(whip, enemies, dimension, body):
 		badboys = 1
 		for baddy in enemies:
 			badboys += 1
@@ -48,8 +39,8 @@ class Board:
 			moves = (m1,m2,m3)
 
 			for move in moves:
-				if(move[0]>=0 and move[0]< self.dimension[0] and move[1]>=0 and move[1]< self.dimension[1] ):
-					if(len(self.body)>len(baddy)):
+				if(move[0]>=0 and move[0]< dimension[0] and move[1]>=0 and move[1]< dimension[1] ):
+					if(len(body)>len(baddy)):
 						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] - 1
 
 					else:
@@ -63,28 +54,44 @@ class Board:
 				
 				if(baddy_bit[0] > 0):
 					whip[baddy_bit[0]-1,baddy_bit[1]][1] = whip[baddy_bit[0]-1,baddy_bit[1]][1] + .5
-				if(baddy_bit[0] < self.dimension[0]-1):
+				if(baddy_bit[0] < dimension[0]-1):
 					whip[baddy_bit[0]+1,baddy_bit[1]][1] = whip[baddy_bit[0]+1,baddy_bit[1]][1] + .5
 				if(baddy_bit[1] > 0):
 					whip[baddy_bit[0],baddy_bit[1]-1][1] = whip[baddy_bit[0],baddy_bit[1]-1][1] + .5
-				if(baddy_bit[0] < self.dimension[1]-1):
+				if(baddy_bit[0] < dimension[1]-1):
 					whip[baddy_bit[0],baddy_bit[1]+1][1] = whip[baddy_bit[0],baddy_bit[1]+1][1] + .5
 
 				if(baddy_bit[0] > 1):
 					whip[baddy_bit[0]-2,baddy_bit[1]][1] = whip[baddy_bit[0]-2,baddy_bit[1]][1] + .25
-				if(baddy_bit[0] < self.dimension[0]-2):
+				if(baddy_bit[0] < dimension[0]-2):
 					whip[baddy_bit[0]+2,baddy_bit[1]][1] = whip[baddy_bit[0]+2,baddy_bit[1]][1] + .25
 				if(baddy_bit[1] > 1):
 					whip[baddy_bit[0],baddy_bit[1]-2][1] = whip[baddy_bit[0],baddy_bit[1]-2][1] + .25
-				if(baddy_bit[1] < self.dimension[0]-2):
+				if(baddy_bit[1] < dimension[0]-2):
 					whip[baddy_bit[0],baddy_bit[1]+2][1] = whip[baddy_bit[0],baddy_bit[1]+2][1] + .25
 
 		thiccness = 1
 		for bit in body:
 			whip[bit[0],bit[1]] = (thiccness,1)
 			thiccness = thiccness + 10
+	
+		return whip
+
+
+	def __init__(self, width, height,food,body,enemies,health=100, food_weight_fcn = default_food_fcn, snake_weight_fcn= default_snake_fcn):
+		self.dimension = (width,height)
+		self.width = width
+		self.height = height
+		self.food = food
+		self.body = body
+		self.enemies = enemies
+		whip = np.zeros((width,height,2), dtype = object)
+		whip = food_weight_fcn(whip, self.food, self.dimension)
+		whip = snake_weight_fcn(whip, self.enemies, self.dimension, self.body)	
+	
 		self.board = whip
 
+	
 	def getCost(self,x,y):
 		return(self.board[x,y][1])
 
