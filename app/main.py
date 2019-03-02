@@ -106,7 +106,9 @@ def move():
     #health is stored as an integer between 0-100
     width,height,food, body, enemies, health = process_data(data)
     board = Board(width,height,food, body, enemies, health)
+
     head = body[0]
+
     direction = calc_move(board,a_star(board,head,food[0]))
     return move_response(direction)
 

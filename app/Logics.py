@@ -19,7 +19,7 @@ def out_of_bounds(coords,board):
 #TODO: May need to be changed with weighting scheme
 def is_safe(coords,board):
     x,y = coords
-    if(not out_of_bounds(coords,board) and board.getBoard()[x][y][1] == 0):
+    if(not out_of_bounds(coords,board) and board.getBoard()[x][y][1] < 1):
         return True
     else:
         return False
@@ -60,15 +60,19 @@ def a_star(board,start,finish):
 '''
 #Use a* path to determine next move
 def calc_move(board,path):
-    print(path)
-    next_coord = path[1][1]
-    print(next_coord[0])
-    print(next_coord[1])
+    path_coords = path[1]
+    path_length = path[0]
+    #next_coord = path[1][1]
+    next_coord = path_coords[1]
+    print(path_coords)
+    print(path_length)
+
     body = board.getBody()
     head = body[0]
     head_x, head_y = head
     width, height = board.getDim()
     directions = []
+    
     if next_coord[1] < head_y:
         directions.append("up")
     if next_coord[1] > head_y:

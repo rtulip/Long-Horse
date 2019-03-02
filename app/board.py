@@ -16,7 +16,10 @@ class Board:
 			if(snack[0] > 0):
 				whip[snack[0]-1,snack[1]][1] = whip[snack[0]-1,snack[1]][1] - .5
 			if(snack[0] < self.dimension[0]-1):
-				whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5
+				try:
+					whip[snack[0]+1,snack[1]][1] = whip[snack[0]+1,snack[1]][1] - .5
+				except IndexError:
+					print "INDEX ERROR!", snack[0]+1, 
 			if(snack[1] > 0):
 				whip[snack[0],snack[1]-1][1] = whip[snack[0],snack[1]-1][1] - .5
 			if(snack[1] < self.dimension[1]-1):
@@ -45,7 +48,7 @@ class Board:
 			moves = (m1,m2,m3)
 
 			for move in moves:
-				if(move[0]>=0 and move[0]<self.dimension[0] and move[1]>=0 and move[1]<self.dimension[1]):
+				if(move[0]>=0 and move[0]< self.dimension[0] and move[1]>=0 and move[1]< self.dimension[1] ):
 					if(len(self.body)>len(baddy)):
 						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] - 1
 
