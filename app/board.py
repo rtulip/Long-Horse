@@ -26,6 +26,9 @@ class Board:
 			return whip
 
 	def default_snake_fcn(whip, enemies, dimension, body):
+        if (whip.any() == None):
+            return  np.zeros((width,height,2), dtype = object)
+			
 		badboys = 1
 		for baddy in enemies:
 			badboys += 1
@@ -94,9 +97,7 @@ class Board:
 
 			thiccness = thiccness + 10
 	
-		if (whip.any() == None):
-			return  np.zeros((width,height,2), dtype = object)
-
+		
 		return whip
 
 
