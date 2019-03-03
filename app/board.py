@@ -28,9 +28,11 @@ class Board:
 	def default_snake_fcn(whip, enemies, dimension, body):
 		try:
 			if (whip == None):
+				print "WHIP == NONE"				
 				return  np.zeros((dimension[0],dimension[1],2), dtype = object)
 		except:
 			if (whip.any() == None):
+				print "SOME OF WHIP == NONE"
 				return  np.zeros((dimension[0],dimension[1],2), dtype = object)
 					
 		badboys = 1
@@ -79,7 +81,7 @@ class Board:
 
 		thiccness = 1
 		for bit in body[:-1]:
-			whip[bit[0],bit[1]] = (thiccness,1)
+			whip[bit[0],bit[1]] = (thiccness,10)
 		
 			if(bit[0] > 0):
 				whip[bit[0]-1,bit[1]][1] = whip[bit[0]-1,bit[1]][1] + .5
