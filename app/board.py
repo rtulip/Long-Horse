@@ -51,7 +51,7 @@ class Board:
 						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] - 1
 
 					else:
-						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] + 1
+						whip[move[0],move[1]][1] = whip[move[0],move[1]][1] + 1.5
 
 			whip[head[0],head[1]] = (badboys+thiccness,1)
 			for baddy_bit in baddy[1:]:
