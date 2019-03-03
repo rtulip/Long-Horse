@@ -89,7 +89,7 @@ class Board:
 				whip[bit[0]+2,bit[1]][1] = whip[bit[0]+2,bit[1]][1] + .25
 			if(bit[1] > 1):
 				whip[bit[0],bit[1]-2][1] = whip[bit[0],bit[1]-2][1] + .25
-			if(baddy_bit[1] < dimension[0]-2):
+			if(bit[1] < dimension[0]-2):
 				whip[bit[0],bit[1]+2][1] = whip[bit[0],bit[1]+2][1] + .25
 
 			thiccness = thiccness + 10
