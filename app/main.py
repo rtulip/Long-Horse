@@ -108,9 +108,11 @@ def move():
             if(is_safe(([head_x,head_y-1]),board)):
                 neighbours.append(("up"))
             if(is_safe(([head_x,head_y+1]),board)):
-                neighbours.append(("down"))
-        
-            direction = random.choice(neighbours)    
+                neighbours.append(("down"))       
+            if (len(neighbours) > 0) return neighbours[0]
+            else:
+                return 'right'
+		    
     else:
         neighbours = []
         if(is_safe(([head_x+1,head_y]),board)):
