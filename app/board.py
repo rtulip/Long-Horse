@@ -94,8 +94,8 @@ class Board:
 
 			thiccness = thiccness + 10
 	
-		if (whip == None):
-			return np.zeros(dimensions[0], dimensions[1])
+		if (whip.any() == None):
+			return  np.zeros((width,height,2), dtype = object)
 
 		return whip
 
