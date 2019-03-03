@@ -102,7 +102,7 @@ def move():
         except:
             neighbours = []
             print "FAILED TO CALC_MOVE"            
-			if(is_safe(([head_x+1,head_y]),board)):
+		    if(is_safe(([head_x+1,head_y]),board)):
                 neighbours.append(("right"))
             if(is_safe(([head_x-1,head_y]),board)):
                 neighbours.append(("left"))
