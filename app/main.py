@@ -101,11 +101,11 @@ def move():
     else:
         neighbours = []
         if(is_safe(([head_x+1,head_y]),board)):
-            neighbours.append((x+1,y))
+            neighbours.append((head_x+1,head_y))
         if(is_safe(([head_x-1,head_y]),board)):
-            neighbours.append((x-1,y))
+            neighbours.append((head_x-1,head_y))
         if(is_safe(([head_x,head_y-1]),board)):
-            neighbours.append((x,y-1))
+            neighbours.append((head_x,head_y-1))
         if(is_safe(([head_x,head_y+1]),board)):
             neighbours.append((head_x,head_y+1))
         
