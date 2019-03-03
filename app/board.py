@@ -71,8 +71,27 @@ class Board:
 					whip[baddy_bit[0],baddy_bit[1]+2][1] = whip[baddy_bit[0],baddy_bit[1]+2][1] + .25
 
 		thiccness = 1
-		for bit in body:
+		for bit in body[:-1]:
 			whip[bit[0],bit[1]] = (thiccness,1)
+		
+			if(bit[0] > 0):
+				whip[bit[0]-1,bit[1]][1] = whip[bit[0]-1,bit[1]][1] + .5
+			if(bit[0] < dimension[0]-1):
+				whip[bit[0]+1,bit[1]][1] = whip[bit[0]+1,bit[1]][1] + .5
+			if(bit[1] > 0):
+				whip[bit[0],bit[1]-1][1] = whip[bit[0],bit[1]-1][1] + .5
+			if(bit[1] < dimension[1]-1):
+				whip[bit[0],bit[1]+1][1] = whip[bit[0],bit[1]+1][1] + .5
+
+			if(bit[0] > 1):
+				whip[bit[0]-2,bit[1]][1] = whip[bit[0]-2,bit[1]][1] + .25
+			if(bit[0] < dimension[0]-2):
+				whip[bit[0]+2,bit[1]][1] = whip[bit[0]+2,bit[1]][1] + .25
+			if(bit[1] > 1):
+				whip[bit[0],bit[1]-2][1] = whip[bit[0],bit[1]-2][1] + .25
+			if(baddy_bit[1] < dimension[0]-2):
+				whip[bit[0],bit[1]+2][1] = whip[bit[0],bit[1]+2][1] + .25
+
 			thiccness = thiccness + 10
 	
 		return whip
