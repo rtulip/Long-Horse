@@ -109,7 +109,8 @@ def move():
                 neighbours.append(("up"))
             if(is_safe(([head_x,head_y+1]),board)):
                 neighbours.append(("down"))       
-            if (len(neighbours) > 0) return neighbours[0]
+            if (len(neighbours) > 0)
+                return neighbours[0]
             else:
                 return 'right'
 		    
