@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-from Logics import a_star, calc_move
+from Logics import a_star, calc_move, is_safe
 from board import Board
 from api import ping_response, start_response, move_response, end_response
 
@@ -92,13 +92,24 @@ def move():
     board = Board(width,height,food, body, enemies, health)
 
     head = body[0]
+    head_x, head_y = head
     tail = body[-1]
     print(tail)
 
     if(len(body) <= 8 or health <= 35 and len(food) != 0):
         direction = calc_move(board,a_star(board,head,food[0]))
     else:
-        direction = calc_move(board,a_star(board,head,tail))
+        neighbours = []
+        if(is_safe(([head_x+1,head_y]),board)):
+            neighbours.append((x+1,y))
+        if(is_safe(([head_x-1,head_y]),board)):
+            neighbours.append((x-1,y))
+        if(is_safe(([head_x,head_y-1]),board)):
+            neighbours.append((x,y-1))
+        if(is_safe(([head_x,head_y+1]),board)):
+            neighbours.append((head_x,head_y+1))
+        
+        direction = random.choice(neighbours)
 
     return move_response(direction)
 
