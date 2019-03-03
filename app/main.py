@@ -97,7 +97,20 @@ def move():
     print(tail)
 
     if(len(body) <= 8 or health <= 35 and len(food) != 0):
-        direction = calc_move(board,a_star(board,head,food[0]))
+        try:
+			direction = calc_move(board,a_star(board,head,food[0]))
+		except:
+			neighbours = []
+		    if(is_safe(([head_x+1,head_y]),board)):
+		        neighbours.append(("right"))
+		    if(is_safe(([head_x-1,head_y]),board)):
+		        neighbours.append(("left"))
+		    if(is_safe(([head_x,head_y-1]),board)):
+		        neighbours.append(("up"))
+		    if(is_safe(([head_x,head_y+1]),board)):
+		        neighbours.append(("down"))
+		    
+		    direction = random.choice(neighbours)
     else:
         neighbours = []
         if(is_safe(([head_x+1,head_y]),board)):
