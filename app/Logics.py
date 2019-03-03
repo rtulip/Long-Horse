@@ -19,7 +19,7 @@ def out_of_bounds(coords,board):
 #TODO: May need to be changed with weighting scheme
 def is_safe(coords,board):
     x,y = coords
-    if(not out_of_bounds(coords,board) and board.getBoard()[x][y][1] < 1):
+    if(not out_of_bounds(coords,board) and board.getBoard()[x][y][0] % 10 != 1 and board.getBoard()[x][y][1] < 1):
         return True
     else:
         return False

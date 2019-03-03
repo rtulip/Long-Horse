@@ -101,8 +101,7 @@ def move():
             direction = calc_move(board,a_star(board,head,food[0]))
         except:
             neighbours = []
-            print "FAILED TO CALC_MOVE"            
-		    if(is_safe(([head_x+1,head_y]),board)):
+            if(is_safe(([head_x+1,head_y]),board)):
                 neighbours.append(("right"))
             if(is_safe(([head_x-1,head_y]),board)):
                 neighbours.append(("left"))
@@ -110,9 +109,8 @@ def move():
                 neighbours.append(("up"))
             if(is_safe(([head_x,head_y+1]),board)):
                 neighbours.append(("down"))
-		
+        
             direction = random.choice(neighbours)    
-            print "CHOSEN DIRECTION:", direction
     else:
         neighbours = []
         if(is_safe(([head_x+1,head_y]),board)):
@@ -125,7 +123,6 @@ def move():
             neighbours.append(("down"))
         
         direction = random.choice(neighbours)
-        print "CHOSEN DIRECTION:", direction
 
     return move_response(direction)
 
