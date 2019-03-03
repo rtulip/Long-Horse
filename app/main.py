@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-from Logics import a_star, calc_move
+from Logics import a_star, calc_move, is_safe
 from board import Board
 from api import ping_response, start_response, move_response, end_response
 
@@ -71,15 +71,6 @@ def ping():
 @bottle.post('/start')
 def start():
     data = bottle.request.json
-    print(data)
-    #Board height and width
-    b_height = data.get("board").get("height")
-    b_width = data.get("board").get("width")
-    
-    food = data.get("board").get("food")
-    snakes = data.get("board").get("snakes")
-    #print(json.dumps(data))
-
     color = "#00FF00"
 
     return start_response(color)
@@ -101,8 +92,25 @@ def move():
     board = Board(width,height,food, body, enemies, health)
 
     head = body[0]
+    head_x, head_y = head
+    tail = body[-1]
+    print(tail)
 
-    direction = calc_move(board,a_star(board,head,food[0]))
+    if(len(body) <= 8 or health <= 35 and len(food) != 0):
+        direction = calc_move(board,a_star(board,head,food[0]))
+    else:
+        neighbours = []
+        if(is_safe(([head_x+1,head_y]),board)):
+            neighbours.append(("right"))
+        if(is_safe(([head_x-1,head_y]),board)):
+            neighbours.append(("left"))
+        if(is_safe(([head_x,head_y-1]),board)):
+            neighbours.append(("up"))
+        if(is_safe(([head_x,head_y+1]),board)):
+            neighbours.append(("down"))
+        
+        direction = random.choice(neighbours)
+
     return move_response(direction)
 
 
