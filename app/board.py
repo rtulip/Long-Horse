@@ -23,7 +23,7 @@ class Board:
 			if(snack[1] < dimension[1]-2):
 				whip[snack[0],snack[1]+2][1] = whip[snack[0],snack[1]+2][1] - .25
 
-			return whip
+		return whip
 
 	def default_snake_fcn(whip, enemies, dimension, body):
 		try:
